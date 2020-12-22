@@ -54,18 +54,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     private void newRoleFromAdmin(User user, String role) {
-        if (role.equalsIgnoreCase("admin")) {
-            Set<Role> roles = new HashSet<>();
+        Set<Role> roles = new HashSet<>();
+        if (role.contains("ADMIN")) {
             roles.add(roleDAO.findRoleByRole("ROLE_ADMIN"));
             user.setRoles(roles);
         }
-        if (role.equalsIgnoreCase("user")) {
-            Set<Role> roles = new HashSet<>();
+        if (role.contains("USER")) {
             roles.add(roleDAO.findRoleByRole("ROLE_USER"));
             user.setRoles(roles);
         }
-        if (role.equalsIgnoreCase("admin,user")) {
-            Set<Role> roles = new HashSet<>();
+        if (role.contains("ADMIN,USER")) {
             roles.add(roleDAO.findRoleByRole("ROLE_ADMIN"));
             roles.add(roleDAO.findRoleByRole("ROLE_USER"));
             user.setRoles(roles);
@@ -96,7 +94,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setPassword(userFromDB.getPassword());
         }
         if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            user.setPassword(userFromDB.getEmail());
+            user.setEmail(userFromDB.getEmail());
         }
         userDAO.saveAndFlush(user);
     }

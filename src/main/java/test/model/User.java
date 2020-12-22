@@ -10,6 +10,13 @@ import java.util.Set;
 @Entity
 @Table(name = "users_crud_mvc")
 public class User implements UserDetails {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Id
     @Column(name = "id")
@@ -51,10 +58,6 @@ public class User implements UserDetails {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -67,9 +70,6 @@ public class User implements UserDetails {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
 
     @Override
