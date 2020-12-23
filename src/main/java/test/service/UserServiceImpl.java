@@ -57,19 +57,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Set<Role> roles = new HashSet<>();
         if (role.contains("ADMIN")) {
             roles.add(roleDAO.findRoleByRole("ROLE_ADMIN"));
-            user.setRoles(roles);
         }
         if (role.contains("USER")) {
             roles.add(roleDAO.findRoleByRole("ROLE_USER"));
-            user.setRoles(roles);
         }
-        if (role.contains("ADMIN,USER")) {
-            roles.add(roleDAO.findRoleByRole("ROLE_ADMIN"));
-            roles.add(roleDAO.findRoleByRole("ROLE_USER"));
-            user.setRoles(roles);
-        }
+        user.setRoles(roles);
     }
-
 
     @Override
     public void add(User user, String role) {
