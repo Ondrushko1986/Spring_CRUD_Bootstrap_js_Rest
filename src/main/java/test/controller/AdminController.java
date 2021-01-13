@@ -1,8 +1,8 @@
 package test.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import test.model.User;
@@ -38,7 +38,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-
     @PostMapping(value = "/add")
     public String addUserByAdmin(@ModelAttribute("user") User user, @RequestParam String role) {
         userService.add(user, role);
@@ -51,6 +50,5 @@ public class AdminController {
         userService.delete(userFromPage);
         return "redirect:/admin";
     }
-
 
 }

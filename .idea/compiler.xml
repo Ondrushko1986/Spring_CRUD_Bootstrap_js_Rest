@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Spring_CRUD_Bootstrap_js_Rest" />
         <module name="Spring_CRUD_Bootstrap_js" />
         <module name="Spring_CRUD_MVC_Secure" />
       </profile>
@@ -14,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Spring_CRUD_Bootstrap_js" options="-parameters" />
+      <module name="Spring_CRUD_Bootstrap_js_Rest" options="-parameters" />
       <module name="Spring_CRUD_MVC_Secure" options="-parameters" />
     </option>
   </component>

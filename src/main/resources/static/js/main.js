@@ -1,3 +1,15 @@
+// async function test() {
+//     const response = await fetch("/rest/loggedInUser");
+//     return await response.json();
+// }
+//
+// let data2 = test().then(data => data.name.type());
+// let el = document.getElementById("loggedInUser");
+// el.innerText = data2;
+
+fetch("/rest/loggedInUser")
+    .then(res => res.json())
+    .then(data => document.getElementById("loggedInUser").innerText = data.name);
 
 $('#myModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget);
@@ -28,3 +40,4 @@ $('#myModalDelete').on('show.bs.modal', function (event) {
     modal.find('#nameDelete').val(nameDelete);
     modal.find('#roleDelete').val(roleDelete);
 })
+
