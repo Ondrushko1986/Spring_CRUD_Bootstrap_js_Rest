@@ -11,11 +11,11 @@ public interface UserService {
 
     void add(User user, String role);
 
-    void delete(User user);
+    void delete(int user);
 
     void edit(User user, String role, String password);
 
-    User getById(int id);
+    void getById(int id);
 
 
 

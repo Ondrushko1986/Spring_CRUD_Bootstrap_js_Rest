@@ -31,24 +31,7 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping(value = "/edit")
-    public String editUser(@ModelAttribute("user") User user, @RequestParam String role,
-                           String password) {
-        userService.edit(user, role, password);
-        return "redirect:/admin";
-    }
 
-    @PostMapping(value = "/add")
-    public String addUserByAdmin(@ModelAttribute("user") User user, @RequestParam String role) {
-        userService.add(user, role);
-        return "redirect:/admin";
-    }
 
-    @PostMapping(value = "/delete")
-    public String deleteUser(@ModelAttribute("user") User user) {
-        User userFromPage = userService.getById(user.getId());
-        userService.delete(userFromPage);
-        return "redirect:/admin";
-    }
 
 }

@@ -43,13 +43,13 @@ $(document).ready(function () {
 
             var newObject = {};
             newObject ["name"] = $("#nameTextInput").val();
-            newObject["userPassword"] = $("#userPasswordTextInput").val();
+            newObject["password"] = $("#userPasswordTextInput").val();
             newObject["email"] = $("#emailTextInput").val();
             newObject["roles"] = $("#roleSelectNU").val();
 
             $.ajax({
                 url: 'rest/add',
-                type: 'POST',
+                method: 'post',
                 contentType: "application/json;charset=UTF-8",
                 data: JSON.stringify(newObject),//отправляем на сервер JSON преобразовав объект newObject через метод JSON.stringify()
                 dataType: 'json',
@@ -58,16 +58,23 @@ $(document).ready(function () {
                     $("#addForm").trigger("reset");
                     var tableBody = $('#myTbody');
 
+                    $(data).each(function (i, user) {//перебираем все элементы в data
+                        var stringRoles = [];
+                        for (var y = 0; y < user.roles.length; y++) {
+                            stringRoles.push(user.roles[y].role);
+                        }
+
                     tableBody.append(`<tr id="${data.id}">
                     <td id="userId-${data.id}">${data.id}</td>
                     <td id="userName-${data.id}">${data.name}</td>
                     <td id="userEmail-${data.id}">${data.email}</td>
-                    <td id="userRoles-${data.id}">${data.roles}</td>
+                    <td id="userEmail-${data.id}">${data.password}</td>
+                    <td id="userRoles-${data.id}">${stringRoles}</td>
                     <td><button type="button" class="btn btn-info edit-user" data-toggle="modal" data-target="#windowModal"
                     id="editModalButton-${data.id}">Edit</button></td>
                     <td><button type="button" class="btn btn-danger delete-user" data-toggle="modal" data-target="#windowModal"
                     id="deleteModalButton-${data.id}">Delete</button></td>
-                    </tr>`);
+                    </tr>`); })
                 },
                 error:
                     function () {
@@ -90,8 +97,8 @@ $(document).ready(function () {
         var id = $("#IdInput").val();
         var delObj = $('#deleteModalButton-' + id);
         $.ajax({
-            url: '/rest/delete' + id,
-            type: 'DELETE',
+            url: '/rest/delete/' + id,
+            method: 'delete',
             contentType: "application/json;charset=UTF-8",
 
             success: function () {
@@ -126,7 +133,7 @@ $(document).ready(function () {
         updateObject["id"] = $("#IdInput").val();
         updateObject["name"] = $("#nameInput").val();
         updateObject["email"] = $("#emailInput").val();
-        updateObject["userPassword"] = $("#passwordInput").val();
+        updateObject["password"] = $("#passwordInput").val();
         updateObject["roles"] = $("#roleSelectInput").val();
 
         $.ajax({
@@ -136,15 +143,22 @@ $(document).ready(function () {
             data: JSON.stringify(updateObject),
             dataType: 'json',
             success: function (data) {
+
+                $(data).each(function (i, user) {//перебираем все элементы в data
+                        var stringRoles = [];
+                        for (var y = 0; y < user.roles.length; y++) {
+                            stringRoles.push(user.roles[y].role);
+                        }
+
                 var id = data.id;
                 var name = data.name;
                 var email = data.email;
-                var roles = data.roles;
+                var roles = stringRoles;
                 $('#userId-' + id).text(id);
                 $('#userName-' + id).text(name);
                 $('#userEmail-' + id).text(email);
                 $('#userRoles-' + id).text(roles);
-                $('#windowModal .closeSecondButton').click();
+                $('#windowModal .closeSecondButton').click();})
             },
             error: function () {
                 alert("Error!");

@@ -43,13 +43,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void delete(User user) {
-        userDAO.delete(user);
+    public void delete(int id) {
+        userDAO.deleteById(id);
     }
 
     @Override
-    public User getById(int id) {
-        return userDAO.getById(id);
+    public void getById(int id) {
+        userDAO.deleteById(id);
     }
 
 
@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDAO.save(user);
     }
+
 
     @Override
     public void edit(User user, String role, String password) {

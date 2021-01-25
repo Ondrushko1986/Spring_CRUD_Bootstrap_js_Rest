@@ -43,12 +43,19 @@
 <div class="container-fluid">
     <div class="row">
         <!--    Секция Админ-Юзер слева кнопки-->
-        <div class="col-2 bg-white">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-admin-tab" data-toggle="pill" href="#v-pills-admin" role="tab"
-                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
-                <a class="nav-link" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab"
-                   aria-controls="v-pills-user" aria-selected="false">User</a>
+        <div class="col-md-2">
+            <p></p>
+            <div class="btn-group-vertical btn-block">
+                <button class="btn btn-primary" type="button">
+                    <a class="nav-link bg-primary text-white" href="#">
+                        Admin
+                    </a>
+                </button>
+                <button class="btn btn-white" type="button">
+                    <a class="nav-link" href="/user">
+                        User
+                    </a>
+                </button>
             </div>
         </div>
         <!--        Секция Админ-Юзер слева содержимое кнопок-->
@@ -136,7 +143,7 @@
                                                             type="password"
                                                             class="form-control inputs"
                                                             id="passwordInput"
-                                                            name="userPassword">
+                                                            name="password">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="emailInput">Email</label>
@@ -176,7 +183,7 @@
 
                             <!--                Вкладка новый юзер-->
                             <div class="tab-pane fade" id="ANU">
-                                <div class="container">
+                                <div class="container" id="table">
                                     <h4>Add new user</h4>
                                     <div id="addingNewUserDiv"></div>
                                     <form id="addForm">
@@ -188,27 +195,7 @@
                                                        name="name"
                                                        required>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="userPasswordTextInput">Password</label>
-                                                <input type="password" class="form-control" id="userPasswordTextInput"
-                                                       placeholder="Password"
-                                                       name="userPassword"
-                                                       required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="positionTextInput">Position</label>
-                                                <input type="text" class="form-control" id="positionTextInput"
-                                                       placeholder="Position"
-                                                       name="position"
-                                                       required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="ageTextInput">Age</label>
-                                                <input type="number" class="form-control" id="ageTextInput"
-                                                       placeholder="Age"
-                                                       name="age"
-                                                       required>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label for="emailTextInput">Email</label>
                                                 <input type="email" class="form-control" id="emailTextInput"
@@ -216,6 +203,15 @@
                                                        name="email"
                                                        required>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label for="userPasswordTextInput">Password</label>
+                                                <input type="password" class="form-control" id="userPasswordTextInput"
+                                                       placeholder="Password"
+                                                       name="userPassword"
+                                                       required>
+                                            </div>
+
                                             <div class="form-group">
                                                 <label for="roleSelectNU">Role</label>
                                                 <select multiple class="custom-select" id="roleSelectNU" size="2"
@@ -243,6 +239,8 @@
     </div>
 </div>
 </div>
+
+
 </body>
 
 

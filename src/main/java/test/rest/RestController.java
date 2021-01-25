@@ -12,6 +12,8 @@ import test.model.User;
 import test.service.UserServiceImpl;
 
 
+import java.io.DataInput;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class RestController {
 
     private final UserServiceImpl userService;
+    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public RestController(UserServiceImpl userService) {
@@ -42,39 +45,26 @@ public class RestController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-//    @PutMapping(value = "/edit")
-//    public ResponseEntity<User> editUser(@RequestBody User user, @RequestParam String role,
-//                                         String password) {
-//        userService.edit(user, role, password);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-
     @PutMapping(value = "/edit")
-    public ResponseEntity<User> editUser(String user, String roles, String password) throws JsonProcessingException {
-        User userFromJson = getUser(user, roles, password);
-        userService.edit(userFromJson, roles, password);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> editUser(@RequestBody String updateUser) throws IOException {
+        User userFromRequest = mapper.readValue(updateUser, User.class);
+        String userRoles = userFromRequest.getRoles().toString();
+        userService.edit(userFromRequest, userRoles, userFromRequest.getPassword());
+        return new ResponseEntity<>(userFromRequest,HttpStatus.OK);
     }
 
-    private User getUser(String user, String role, String password) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        User userFromParam = mapper.readValue(user, User.class);
-        String rolesFromParam = mapper.readValue(role, ArrayList.class).toString();
-        String passwordFromParam = mapper.readValue(password, String.class);
-        userFromParam.setPassword(passwordFromParam);
-        return userFromParam;
-    }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<User> addUserByAdmin(@RequestBody User user, @RequestParam String role) {
-        userService.add(user, role);
+    public ResponseEntity<User> addUserByAdmin(@RequestBody String newUser) throws JsonProcessingException {
+        User user = mapper.readValue(newUser, User.class);
+        String userRoles = user.getRoles().toString();
+        userService.add(user, userRoles);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/delete")
-    public ResponseEntity<User> deleteUser(@RequestBody User user) {
-        User userFromPage = userService.getById(user.getId());
-        userService.delete(userFromPage);
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable int id) {
+        userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -34,14 +34,6 @@ public class UserController {
         return "user";
     }
 
-//    @GetMapping(value = "/user")
-//    public ResponseEntity<User> user(@RequestBody User user, Model model) {
-//        User loggedInUser = (User) SecurityContextHolder.getContext()
-//                .getAuthentication().getPrincipal();
-//        model.addAttribute("loggedInUser", loggedInUser);
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-//    }
-
     @GetMapping(value = "/")
     public String getHomePage() {
         return "login";
